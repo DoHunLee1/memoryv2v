@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <!-- Meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION META TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <meta property="og:image" content="static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+  <meta name="twitter:title" content="TWITTER TITLE TAG">
+  <meta name="twitter:description" content="TWITTER DESCRIPTION META TAG">
+  <meta name="twitter:image" content="static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <meta name="keywords" content="KEYWORDS">
+
+  <title>Memory-V2V: Augmenting Video-to-Video Diffusion Models with Memory</title>
+
+  <!-- Fonts + CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      font-family: "Helvetica", "Arial", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+  
+    p, span, li, a, div {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.005em;
+    }
+  </style>
+  <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/index.js"></script>
+
+  <!-- ★★★★★ 전체 사이트 폭을 퍼센트로 확장하는 글로벌 override ★★★★★ -->
+  <style>
+    /* 전체 사이트 가로폭 = 90% (Bulma 기본 max-width 제거) */
+    .container,
+    .container.is-max-desktop,
+    .container.is-max-widescreen,
+    .container.is-max-fullhd {
+      width: 90%;
+      max-width: none;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+
+  <style>
+    .gradient-text {
+      background: linear-gradient(90deg, #6a82fb, #a06bff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+
+<body>
+
+  <!-- Title -->
+  <section class="hero" style="background-color:#ffffff;">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title" style="margin-top:60px; font-size:55x; line-height: 1.6;">
+              <span class="gradient-text">Memory-V2V</span>: Augmenting Video-to-Video Diffusion Models with Memory
+            </h1>
+
+
+            <div class="is-size-4 publication-authors" style="margin-top:60px;">
+              <!-- Paper authors -->
+              <span class="author-block">
+                <a href="https://github.com/DoHunLee1" target="_blank">Dohun Lee</a><sup>2</sup>, </span>
+                <span class="author-block">
+                  <a href="https://scholar.google.com/citations?user=LphRgywAAAAJ&hl=en" target="_blank">Chun-Hao Paul Huang</a><sup>1</sup>, </span>
+                   <span class="author-block">
+                    <a href="https://xuelin-chen.github.io/" target="_blank">Xuelin Chen</a><sup>1</sup>, </span>
+                      <span class="author-block"> 
+                        <a href="https://scholar.google.com/citations?user=HNMjoNEAAAAJ&hl=en" target="_blank">Jong Chul Ye</a><sup>2</sup>, </span>
+                        <span class="author-block"> 
+                          <a href="https://scholar.google.com/citations?user=56Kj2QoAAAAJ&hl=en" target="_blank">Duygu Ceylan</a><sup>1</sup>, </span>
+                          <span class="author-block"> 
+                            <a href="https://hyeonho99.github.io/" target="_blank">Hyeonho Jeong</a><sup>1</sup></span>
+                          
+            </div> 
+              <div class="is-size-4 publication-authors" style="margin-top:30px; ">
+                <span class="author-block" style="color:black;"> <sup>1</sup>Adobe Research, <sup>2</sup>KAIST </span>
+                  <!-- <br>Conferance name and year</span> -->
+              </div>
+          
+              <!-- Paper authors -->
+                  <!-- Github link -->
+                <div class="is-size-4" style="margin-top:30px; ">
+                  <span class="link-block">
+                    <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    </ARXIV>
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                  </span>
+              
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                    </a>
+                  </span>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- TL;DR (흰 배경) -->
+  <section class="section" style="background-color:#e5e5e5;">
+
+    <div class="container">
+      <!-- TL;DR -->
+      <div class="columns is-centered">
+        <div class="column is-12 has-text-centered">
+          <h2 class="title is-2">TL;DR</h2>
+        </div>
+      </div>
+  
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <p class="content has-text-justified" style="font-size:24px;">
+            We propose <span class="gradient-text">Memory-V2V</span>, a unified framework that equips video-to-video diffusion models with memory. By retrieving past results and injecting them into each denoising round, we achieve strong cross-consistency across multi-turn novel view synthesis and long-video editing.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Demo Video 바로 아래 -->
+      <div class="columns is-centered" style="margin-top:10px;">
+        <div class="column is-12 has-text-centered">
+          <video controls autoplay muted style="width:100%; border-radius:0px;">
+            <source src="static/videos/demo_blur.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+
+  <!-- Method Section (그레이 배경) -->
+  <section class="section" style="background-color:#ffffff;">
+    <div class="container">
+
+      <div class="columns is-centered">
+        <div class="column is-12 has-text-centered">
+          <h2 class="title is-2">Method</h2>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <p class="content has-text-justified" style="font-size:24px;">
+            <span class="gradient-text">Memory-V2V</span> is an efficient finetuning framework that equips video-to-video foundation models with explicit memory. For multi-turn novel view synthesis, previously generated videos and their camera poses are stored in an external cache, and relevant past results are retrieved by computing VideoFOV overlap with the current target trajectory. To control the large number of conditioning tokens, we apply priority-based dynamic tokenization using different kernel sizes and further compresses low-importance frames with an adaptive, learnable convolutional compressor inside the model, enabling compact yet informative memory tokens that preserve cross-consistency across sequential edits.
+          </p>
+        </div>
+      </div>
+
+      <!-- Image #1 -->
+      <div class="columns is-centered">
+        <div class="column is-12 has-text-centered">
+          <img src="static/images/method/fig_main.png"
+               style="width:100%; border-radius:10px; margin-bottom:30px; margin-top:30px;"
+               alt="Method Illustration 1">
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <p class="content has-text-justified" style="font-size:24px;">
+            For long video editing, the input is divided into multiple segments, and each new segment is generated sequentially by retrieving previously produced segments based on source-video similarity. Since dedicated long-video editing datasets are scarce, the target video can be extended using a generative model, and the extended sequence is used as memory during training. In this way, <span class="gradient-text">Memory-V2V</span> can easily and reliably incorporate memory by adopting retrieval strategies tailored to each video-to-video task.
+          </p>
+        </div>
+      </div>
+
+      <!-- Image #2 -->
+      <div class="columns is-centered">
+        <div class="column is-8 has-text-centered">
+          <img src="static/images/method/long_video_main.png"
+               style="width:100%; border-radius:10px; margin-top:30px;"
+               alt="Method Illustration 2">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Results (흰 배경) -->
+  <section class="section" style="background-color:#e5e5e5;">
+    <div class="container">
+
+      <!-- 전체 Results 타이틀 -->
+      <div class="has-text-centered" style="margin-bottom: 30px;">
+        <h2 class="title is-2">Results</h2>
+      </div>
+
+      <!-- (a) Multi-turn Novel View Synthesis -->
+      <div class="has-text-centered" style="margin-bottom: 20px;">
+        <h3 class="title is-3">(a) Multi-turn Video Novel View Synthesis</h3>
+      </div>
+
+
+      
+      <!-- Video 1 (row 1) -->
+      <div class="columns is-centered">
+        <div class="column is-12">
+  
+          <!-- 3분할 캡션 (비디오와 같은 폭 기준) -->
+          <div style="
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 24px;
+          ">
+            <div style="flex: 0 0 33%; font-weight:600;">Input video</div>
+            <div style="flex: 0 0 33%; font-weight:600;">1st iteration</div>
+            <div style="flex: 0 0 33%; font-weight:600;">2nd iteration</div>
+          </div>
+
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:0px;">
+            <source src="static/videos/nvs_stage2_blur.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+  
+          <!-- 3분할 캡션 (비디오와 같은 폭 기준) -->
+          <div style="
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 22px;
+          ">
+            <div style="flex: 0 0 25%; font-weight:600;">Input video</div>
+            <div style="flex: 0 0 25%; font-weight:600;">1st iteration</div>
+            <div style="flex: 0 0 25%; font-weight:600;">2nd iteration</div>
+            <div style="flex: 0 0 25%; font-weight:600;">3rd iteration</div>
+          </div>
+          <!-- Video 2 (row 2) -->
+          <video controls autoplay loop muted playsinline style="width:100%; border-radius:0px;">
+            <source src="static/videos/nvs_stage3_blur.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+       
+        </div>
+      </div>
+<!-- 
+      Video 3 (row 3)
+      <div class="columns is-centered" style="margin-bottom:40px;">
+        <div class="column is-12 has-text-centered">
+          <video controls loop muted playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/result_a_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div> -->
+
+
+      <!-- (b) Long Video Editing -->
+      <div class="has-text-centered" style="margin-bottom: 40px; margin-top: 40px;">
+        <h3 class="title is-3">(b) Text-guided Long Video Editing</h3>
+      </div>
+
+      <!-- ===================== Row 1 ===================== -->
+      <!-- 비디오 4개 -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Input 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 1 - Editing Prompts (Input1→Ours1, Input2→Ours2) -->
+      <div class="columns is-centered is-variable is-4" style="margin-top:px; margin-bottom:32px;">
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Change apple to orange"
+            </span>
+          </p>
+        </div>
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Make the dark door white"
+            </span>
+          </p>
+        </div>
+      </div>
+
+
+      <!-- ===================== Row 2 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Input 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 2 - Editing Prompts -->
+      <div class="columns is-centered is-variable is-4" style="margin-top:px; margin-bottom:32px;">
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Add a beautiful hat to a woman"
+            </span>
+          </p>
+        </div>
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Change blue jacket into red"
+            </span>
+          </p>
+        </div>
+      </div>
+
+
+      <!-- ===================== Row 3 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_5.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_5.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Input 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_6.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 3 - Editing Prompts -->
+      <div class="columns is-centered is-variable is-4" style="margin-top:px;">
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Add a colorful scarlet macaw parrot perched on the man's left shoulder, bright red and blue wing feathers ... natural weight distribution, soft shadow beneath bird."
+            </span>
+          </p>
+        </div>
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Change a man's glasses into a transparent glasses"
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <!-- ===================== Row 4 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video ( > 900 frames)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_7.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 1 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_7.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Input 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video ( > 900 frames)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_7.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Ours 2 -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_8.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 3 - Editing Prompts -->
+      <div class="columns is-centered is-variable is-4" style="margin-top:px;">
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Change glasses into sunglasses"
+            </span>
+          </p>
+        </div>
+        <div class="column is-6 has-text-centered">
+          <p style="font-size:20px; font-weight:600;">
+            <span style="font-weight:600;">
+              "Change the hat into more beautiful hat"
+            </span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    
+
+  
+  </section>
+
+
+  <!-- Comparisons with Previous Approaches (그레이 배경) -->
+  <section class="section" style="background-color:#ffffff;">
+    <div class="container">
+
+      <div class="has-text-centered" style="margin-bottom: 30px;">
+        <h2 class="title is-2">Comparisons with Previous Approaches</h2>
+      </div>
+
+      <div class="columns is-centered">
+        <div class="column is-12">
+          <p class="content has-text-justified" style="font-size:24px;">
+          
+            We compare our method <span class="gradient-text">Memory-V2V</span> with state-of-the-art video-to-video diffusion frameworks, including
+            TrajectoryCrafter<a href="#ref-trajcrafter">[1]</a> and ReCamMaster<a href="#ref-recam">[2]</a> for video novel view synthesis, and
+            LucyEdit<a href="#ref-lucyedit">[3]</a> and the FIFO<a href="#ref-fifo">[4]</a>-enhanced variant of LucyEdit for long-video editing.
+      
+
+          </p>
+        </div>
+      </div>
+
+
+      <!-- (a) Multi-turn Novel View Synthesis -->
+      <div class="has-text-centered" style="margin-bottom: 20px;">
+        <h3 class="title is-3">(a) Multi-turn Video Novel View Synthesis</h3>
+      </div>
+
+      <div class="columns is-centered" style="margin-bottom: 20px;">
+        <div class="column is-12 has-text-centered">
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:0px;">
+            <source src="static/videos/nvs_comp_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <div class="columns is-centered" style="margin-bottom:40px;">
+        <div class="column is-12 has-text-centered">
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:0px;">
+            <source src="static/videos/nvs_comp_2_blur.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- (b) Long Video Editing -->
+      <div class="has-text-centered" style="margin-bottom: 40px;">
+        <h3 class="title is-3">(b) Text-guided Long Video Editing</h3>
+      </div>
+
+      <!-- ===================== Row 1 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit w/ FIFO -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit w/ FIFO</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_fifo_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Memory-V2V (Ours) -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 1 - Editing Prompt (공통) -->
+      <div class="columns is-centered" style="margin-top:px; margin-bottom:32px;">
+        <div class="column is-12 has-text-centered">
+          <p style="font-size:20px; font-weight:400;">
+            Editing Instruction:<br>
+            <span style="font-weight:600;">
+              "Change apple to orange"
+            </span>
+          </p>
+        </div>
+      </div>
+
+
+      <!-- ===================== Row 2 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit w/ FIFO -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit w/ FIFO</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_fifo_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Memory-V2V (Ours) -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 2 - Editing Prompt -->
+      <div class="columns is-centered" style="margin-top:px; margin-bottom:32px;">
+        <div class="column is-10 has-text-centered">
+          <p style="font-size:20px; font-weight:400;">
+            Editing Instruction:<br>
+            <span style="font-weight:600;">
+              "Make the dark door white"
+            </span>
+          </p>
+        </div>
+      </div>
+
+
+      <!-- ===================== Row 3 ===================== -->
+      <div class="columns is-centered is-variable is-4">
+        <!-- Input -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">Input video</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/input_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- LucyEdit w/ FIFO -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;">LucyEdit w/ FIFO</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/lucyedit_fifo_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <!-- Memory-V2V (Ours) -->
+        <div class="column is-3 has-text-centered">
+          <p style="font-size:20px; font-weight:600; margin-bottom:8px;"><span class="gradient-text">Memory-V2V</span> (Ours)</p>
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:10px;">
+            <source src="static/videos/long_video/ours_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 3 - Editing Prompt -->
+      <div class="columns is-centered" style="margin-top:px;">
+        <div class="column is-10 has-text-centered">
+          <p style="font-size:20px; font-weight:400;">
+            Editing Instruction:<br>
+            <span style="font-weight:600;">
+              "Add a beautiful hat to a woman"
+            </span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- Ablation Study (흰 배경) -->
+  <section class="section" style="background-color:#e5e5e5;">
+    <div class="container">
+      <div class="has-text-centered" style="margin-bottom: 30px;">
+        <h2 class="title is-2">Ablation Study on VideoFOV and Adaptive Token Merging</h2>
+      </div>
+
+      <p class="content has-text-justified" style="font-size:24px;">
+          
+        Using VideoFOV makes the results from later iterations (e.g., the 5th) much more consistent with those from the first iteration. Furthermore, with adaptive token merging, we can reduce FLOPs and runtime by more than 30% without any degradation in generation quality.
+  
+
+      </p>
+
+      <div class="columns is-centered">
+        <div class="column is-12 has-text-centered">
+          <video controls autoplay muted loop playsinline style="width:100%; border-radius:px;">
+            <source src="static/videos/ablation.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background-color:#ffffff;">
+
+    <div class="container">
+  
+      <div class="has-text-centered" style="margin-bottom: 30px;">
+        <h2 class="title is-2">Proof-of-Concept: Ideal Context Encoder</h2>
+      </div>
+
+      <p class="content has-text-justified" style="font-size:24px;">
+        We investigate which type of memory encoder best preserves and transfers information by conditioning the model on the states from
+        CUT3R<a href="#ref-cut3r">[5]</a>, LVSM<a href="#ref-lvsm">[6]</a>, and a VAE.
+        While CUT3R and LVSM fail to provide sufficiently informative guidance to the video diffusion model, 
+        the VAE state effectively conveys the necessary information, leading to consistent generation of same region in different views.
+      </p>
+  
+      <!-- 캡션 + 비디오를 같은 column(is-10) 안에 넣기 -->
+      <div class="columns is-centered">
+        <div class="column is-12">
+  
+
+          <!-- 단일 3-split 비디오 -->
+          <div class="has-text-centered">
+            <video controls autoplay muted loop playsinline style="width:100%; border-radius:0px;">
+              <source src="static/videos/encoder_blur.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+
+  <!-- Comparison Between Adaptive Token Merging and Discarding (그레이 배경) -->
+  <section class="section" style="background-color:#e5e5e5;">
+
+    <div class="container">
+  
+      <div class="has-text-centered" style="margin-bottom: 30px;">
+        <h2 class="title is-2">Comparison Between Adaptive Token Discarding and Merging</h2>
+      </div>
+
+      <p class="content has-text-justified" style="font-size:24px;">
+        Adaptive token merging preserves both semantic and motion information, whereas adaptive token discarding leads to the loss of important motion and structural details.
+      </p>
+
+      <!-- 캡션 + 비디오를 같은 column(is-10) 안에 넣기 -->
+      <div class="columns is-centered">
+        <div class="column is-12">
+  
+          <!-- 3분할 캡션 (비디오와 같은 폭 기준) -->
+          <div style="
+            display: flex;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 24px;
+          ">
+            <div style="flex: 0 0 33.33%; font-weight: 600;">Input video</div>
+            <div style="flex: 0 0 33.33%; font-weight: 600;">w/ Adaptive Token Discarding</div>
+            <div style="flex: 0 0 33.33%; font-weight: 600;">w/ Adaptive Token Merging</div>
+          </div>
+  
+          <!-- 단일 3-split 비디오 -->
+          <div class="has-text-centered">
+            <video controls autoplay muted loop playsinline style="width:100%; border-radius:0px;">
+              <source src="static/videos/atm_vs_discarding_blur.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column custom-width">
+            <div class="content has-text-justified" style="margin-top: -0px;">
+              
+              <b>Reference:</b> <br>
+                <a name="ref-trajcrafter" id="ref-trajcrafter"></a>
+                [1] Yu, Mark, et al., <i>TrajectoryCrafter: Redirecting Camera Trajectory for Monocular Videos via Diffusion Models</i>, International Conference on Computer Vision, 2025.<br>
+  
+                <a name="ref-recam" id="ref-recam"></a>
+                [2] Bai, Jianhong, et al. <i>ReCamMaster: Camera-Controlled Generative Rendering from A Single Video</i>, International Conference on Computer Vision, 2025.<br>
+  
+                <a name="ref-lucyedit" id="ref-lucyedit"></a>
+                [3] Decart AI Team, <i>Lucy Edit: Open-Weight Text-Guided Video Editing</i>, 2025.<br>
+  
+                <a name="ref-fifo" id="ref-fifo"></a>
+                [4] Kim, Jihwan, et al., <i>FIFO-Diffusion: Generating Infinite Videos from Text without Training</i>, Neural Information Processing Systems, 2024<br>
+
+                <a name="ref-cut3r" id="ref-cut3r"></a>
+                [5] Wang, Quanqian, et al., <i>Continuous 3D Perception Model with Persistent State</i>, Computer Vision and Pattern Recognition, 2025.<br>
+
+                <a name="ref-lvsm" id="ref-lvsm"></a>
+                [6] Jin, Haian, et al., <i>LVSM: A Large View Synthesis Model with Minimal 3D Inductive Bias</i>, International Conference on Learning Representations, 2025.<br>
+  
+                <br><br>
+     
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+</body>
+</html>
